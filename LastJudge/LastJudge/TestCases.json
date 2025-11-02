@@ -1,0 +1,18 @@
+[
+  {
+    "FileName": "feladat1.py",
+    "Method": "paros",
+    "Tests": [
+      {
+        "Name": "Páros szám",
+        "InputValues": [ 2 ],
+        "ExpectedOutput": true
+      },
+      {
+        "Name": "Páratlan szám",
+        "InputValues": [ 3 ],
+        "ExpectedOutput": false
+      }
+    ]
+  }
+]
