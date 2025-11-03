@@ -32,10 +32,10 @@ jobs:
 
       - name: Publish as single-file self-contained executable
         working-directory: LastJudge/LastJudge
-        run: dotnet publish -c Release -r ${{ matrix.runtime }} --self-contained true /p:PublishSingleFile=true /p:IncludeAllContentForSelfExtract=true /p:PublishTrimmed=false -o ./publish/${{ matrix.runtime }}
+        run: dotnet publish -c Release -r ${{ matrix.runtime }} --self-contained true /p:PublishSingleFile=true /p:IncludeAllContentForSelfExtract=true /p:PublishTrimmed=false -o publish/${{ matrix.runtime }}
 
       - name: Upload published artifact
         uses: actions/upload-artifact@v4
         with:
           name: LastJudge-${{ matrix.runtime }}
-          path: ./publish/${{ matrix.runtime }}/*
+          path: publish/${{ matrix.runtime }}/*
