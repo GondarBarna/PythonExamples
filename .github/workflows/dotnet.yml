@@ -3,6 +3,11 @@
 
 name: .NET
 
+permissions:
+  contents: write
+  actions: read  
+  id-token: none 
+
 on:
   push:
     paths:
@@ -40,12 +45,6 @@ jobs:
         working-directory: LastJudge/LastJudge
         run: dotnet publish -c Release -r ${{ matrix.runtime }} --self-contained true /p:PublishSingleFile=true /p:IncludeAllContentForSelfExtract=true /p:PublishTrimmed=false -o publish/${{ matrix.runtime }}
 
-      - name: Upload published artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: LastJudge-${{ matrix.runtime }}
-          path: LastJudge/LastJudge/publish/${{ matrix.runtime }}/*
-      
       - name: Create ZIP file
         run: |
           cd LastJudge/LastJudge/publish/${{ matrix.runtime }}
