@@ -1,29 +1,12 @@
-﻿using IronPython.Hosting;
-using IronPython.Runtime;
-using LastJudge.Configuration;
+﻿using LastJudge.Configuration;
+using LastJudge.Helpers;
 using LastJudge.Report;
-using Microsoft.Scripting.Hosting;
 
 namespace LastJudge
 {
-    internal class TestRunner
+    internal class TestRunner(List<ExerciseConfig> exercises)
     {
-        private readonly List<ExerciseConfig> exercises;
-
-        private readonly ScriptEngine engine;
-        private readonly ScriptScope scope;
-        private readonly CodeContext context;
-
-        public TestRunner(List<ExerciseConfig> exercises)
-        {
-            this.exercises = exercises;
-
-            engine = Python.CreateEngine();
-            scope = engine.CreateScope();
-            context = new CodeContext([], new ModuleContext([], DefaultContext.DefaultPythonContext));
-        }
-
-        public void Run()
+        public async Task Run()
         {
             var reportBuilder = new ReportBuilder();
 
@@ -37,23 +20,19 @@ namespace LastJudge
                     continue;
                 }
 
-                engine.Execute(File.ReadAllText(exercise.FileName), scope);
-
-                dynamic methodToTest;
+                var runner = new PythonRunner(exercise);
 
                 try
                 {
-                    methodToTest = scope.GetVariable(exercise.Method);
+                    foreach (var test in exercise.Tests)
+                    {
+                        await ExecuteTest(runner, exercise.FileName, test, reportBuilder);
+                    }
                 }
                 catch (MissingMemberException)
                 {
                     reportBuilder.AddErrorToExercise(exercise.FileName, $"Nem található függvény {exercise.Method} néven");
                     continue;
-                }
-
-                foreach (var test in exercise.Tests)
-                {
-                    ExecuteTest(methodToTest, exercise.FileName, test, reportBuilder);
                 }
             }
 
@@ -62,15 +41,15 @@ namespace LastJudge
             File.WriteAllText("eredmeny.html", report);
         }
 
-        private void ExecuteTest(dynamic methodToTest, string exercise, TestConfig test, ReportBuilder reportbuilder)
+        private static async Task ExecuteTest(PythonRunner runner, string exercise, TestConfig test, ReportBuilder reportbuilder)
         {
-            dynamic result;
+            dynamic? result;
 
             try
             {
-                result = methodToTest.__call__(context, test.InputValues.ToArray());
+                result = await runner.Run(test.InputValues);
             }
-            catch (Exception ex)
+            catch (TestException ex)
             {
                 reportbuilder.AddTestResultFail(exercise, test.Name, $"Váratlan hiba történt a teszt végrehajtása közben: " +
                     $"{ex.Message}");

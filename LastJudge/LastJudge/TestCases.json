@@ -2,6 +2,7 @@
   {
     "FileName": "feladat1.py",
     "Method": "prim",
+    "ExecutionTimeoutSecond": 1,
     "Tests": [
       {
         "Name": "Szám: 5",

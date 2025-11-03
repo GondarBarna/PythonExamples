@@ -16,7 +16,7 @@ namespace LastJudge
 
         private const string testCasesFileName = "TestCases.json";
 
-        private static int Main()
+        private static async Task<int> Main()
         {
             if (!File.Exists(testCasesFileName))
             {
@@ -27,7 +27,7 @@ namespace LastJudge
             var exercises = ParseExercises();
             var testRunner = new TestRunner(exercises);
 
-            testRunner.Run();
+            await testRunner.Run();
 
             return 0;
         }

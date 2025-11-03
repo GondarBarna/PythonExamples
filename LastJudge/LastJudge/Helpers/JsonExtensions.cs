@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace LastJudge.Configuration.Helpers
+namespace LastJudge.Helpers
 {
     internal static class JsonExtensions
     {

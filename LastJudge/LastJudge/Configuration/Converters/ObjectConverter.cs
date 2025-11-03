@@ -1,4 +1,4 @@
-﻿using LastJudge.Configuration.Helpers;
+﻿using LastJudge.Helpers;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
