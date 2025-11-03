@@ -26,6 +26,12 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Delete existing artifacts
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: '*'
+        continue-on-error: true
+
       - name: Restore dependencies
         working-directory: LastJudge/LastJudge
         run: dotnet restore
