@@ -15,25 +15,23 @@ jobs:
 
     strategy:
       matrix:
-        # You can add more runtimes here if you want Windows/Linux/macOS binaries
         runtime: [ win-x64 ]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Go to directory
-        run: cd LastJudge
-
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'  # adjust for your target version
+          dotnet-version: '8.0.x'
 
       - name: Restore dependencies
+        working-directory: LastJudge
         run: dotnet restore
 
       - name: Publish as single-file self-contained executable
+        working-directory: LastJudge
         run: |
           dotnet publish -c Release `
             -r ${{ matrix.runtime }} `
