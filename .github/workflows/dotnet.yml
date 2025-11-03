@@ -45,3 +45,29 @@ jobs:
         with:
           name: LastJudge-${{ matrix.runtime }}
           path: LastJudge/LastJudge/publish/${{ matrix.runtime }}/*
+      
+      - name: Create ZIP file
+        run: |
+          cd LastJudge/LastJudge/publish/${{ matrix.runtime }}
+          zip -r ../../../../release-${{ matrix.runtime }}.zip .
+
+      - name: Delete previous "Latest" release
+        uses: dev-drprasad/delete-tag-and-release@v1.0
+        with:
+          tag_name: latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Create/Update Rolling Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: LastJudge
+          body: |
+            LastJudge latest release.
+            Commit: ${{ github.sha }}
+            Runtime: `${{ matrix.runtime }}`
+          files: release-${{ matrix.runtime }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
