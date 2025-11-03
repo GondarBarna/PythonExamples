@@ -38,4 +38,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: LastJudge-${{ matrix.runtime }}
-          path: publish/${{ matrix.runtime }}/*
+          path: LastJudge/LastJudge/publish/${{ matrix.runtime }}/*
