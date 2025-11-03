@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace LastJudge.Configuration
 {
-    internal class Test
+    internal class TestConfig
     {
         public required string Name { get; set; }
 

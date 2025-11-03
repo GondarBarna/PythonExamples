@@ -32,14 +32,14 @@ namespace LastJudge
             return 0;
         }
 
-        private static List<Exercise> ParseExercises()
+        private static List<ExerciseConfig> ParseExercises()
         {
-            List<Exercise>? exercises = null;
+            List<ExerciseConfig>? exercises = null;
 
             try
             {
                 var testCasesFileContent = File.ReadAllText(testCasesFileName);
-                exercises = JsonSerializer.Deserialize<List<Exercise>>(testCasesFileContent);
+                exercises = JsonSerializer.Deserialize<List<ExerciseConfig>>(testCasesFileContent);
             }
             catch (JsonException ex)
             {

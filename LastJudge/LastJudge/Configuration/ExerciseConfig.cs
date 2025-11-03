@@ -1,9 +1,9 @@
 ﻿namespace LastJudge.Configuration
 {
-    internal class Exercise
+    internal class ExerciseConfig
     {
         public required string FileName { get; set; }
         public required string Method { get; set; }
-        public List<Test> Tests { get; set; } = [];
+        public List<TestConfig> Tests { get; set; } = [];
     }
 }
