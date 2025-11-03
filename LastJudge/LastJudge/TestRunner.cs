@@ -1,9 +1,7 @@
 ﻿using IronPython.Hosting;
 using IronPython.Runtime;
-using IronPython.Runtime.Exceptions;
 using LastJudge.Configuration;
 using LastJudge.Report;
-using Microsoft.Scripting;
 using Microsoft.Scripting.Hosting;
 
 namespace LastJudge
@@ -71,17 +69,6 @@ namespace LastJudge
             try
             {
                 result = methodToTest.__call__(context, test.InputValues.ToArray());
-            }
-            catch (TypeErrorException)
-            {
-                reportbuilder.AddTestResultFail(exercise, test.Name, "A függvény paraméterei eltérnek az elvárttól");
-                return;
-            }
-            catch (ArgumentTypeException)
-            {
-                reportbuilder.AddTestResultFail(exercise, test.Name, $"A függvény paramétereinek száma nem megfelelő. " +
-                    $"(Evárt: {test.InputValues.Count})");
-                return;
             }
             catch (Exception ex)
             {

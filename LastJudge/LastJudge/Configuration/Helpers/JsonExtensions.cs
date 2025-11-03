@@ -8,7 +8,7 @@ namespace LastJudge.Configuration.Helpers
         {
             JsonTokenType.True => true,
             JsonTokenType.False => false,
-            JsonTokenType.Number => reader.TryGetInt64(out long l) ? l : reader.GetDouble(),
+            JsonTokenType.Number => reader.TryGetInt64(out long l) ? l : (object)reader.GetDouble(),
             JsonTokenType.String => reader.GetString() ?? string.Empty,
             JsonTokenType.StartObject => JsonSerializer.Deserialize<Dictionary<string, object>>(ref reader, options),
             JsonTokenType.StartArray => JsonSerializer.Deserialize<List<object>>(ref reader, options),

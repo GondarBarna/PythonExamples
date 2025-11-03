@@ -1,17 +1,42 @@
 [
   {
     "FileName": "feladat1.py",
-    "Method": "paros",
+    "Method": "prim",
     "Tests": [
       {
-        "Name": "Páros szám",
+        "Name": "Szám: 5",
+        "InputValues": [ 5 ],
+        "ExpectedOutput": true
+      },
+      {
+        "Name": "Szám: 10",
+        "InputValues": [ 10 ],
+        "ExpectedOutput": false
+      },
+      {
+        "Name": "Szám: 0",
+        "InputValues": [ 0 ],
+        "ExpectedOutput": false
+      },
+      {
+        "Name": "Szám: 1",
+        "InputValues": [ 1 ],
+        "ExpectedOutput": false
+      },
+      {
+        "Name": "Szám: 2",
         "InputValues": [ 2 ],
         "ExpectedOutput": true
       },
       {
-        "Name": "Páratlan szám",
-        "InputValues": [ 3 ],
+        "Name": "Szám: -1000",
+        "InputValues": [ -1000 ],
         "ExpectedOutput": false
+      },
+      {
+        "Name": "Szám: 611953",
+        "InputValues": [ 611953 ],
+        "ExpectedOutput": true
       }
     ]
   }
