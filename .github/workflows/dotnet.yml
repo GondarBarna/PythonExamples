@@ -22,6 +22,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Go to directory
+        run: cd LastJudge
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
